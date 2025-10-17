@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Список филиалов</h2>
+{% for filial in filials_list %}
+<div style="border: 1px solid black; margin-bottom: 5px; padding: 5px">
+    <b>{{ filial.name }}</b> - {{ filial.address }} р.
+</div>
+{% endfor %}
+
+<a href="/">Главная</a>
+</body>
+</html>
