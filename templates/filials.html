@@ -8,7 +8,7 @@
 <h2>Список филиалов</h2>
 {% for filial in filials_list %}
 <div style="border: 1px solid black; margin-bottom: 5px; padding: 5px">
-    <b>{{ filial.name }}</b> - {{ filial.address }} р.
+    <b>{{ filial.name }}</b> - {{ filial.address }}. Рейтинг: {{ filial.rating }} Описание {{ filial.text }}
 </div>
 {% endfor %}
 
