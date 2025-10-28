@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
 <h2>Список филиалов</h2>
 {% for filial in filials_list %}
 <div style="border: 1px solid black; margin-bottom: 5px; padding: 5px">
@@ -12,6 +8,4 @@
 </div>
 {% endfor %}
 
-<a href="/">Главная</a>
-</body>
-</html>
+{% endblock %}

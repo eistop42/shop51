@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Магазин Эльдорадо</h1>
-<p>Меню</p>
-<a href="/">Главная</a>
-<a href="/products">Cписок товаров</a>
-<a href="/filials">Cписок филиалов</a>
+{% extends 'base.html' %}
+
+{% block content %}
 
 <h2>Товар - {{ product_template.name }}</h2>
 <p>Цена: {{ product_template.price }}</p>
 <p>Количество: {{ product_template.count }}</p>
 
-</body>
-</html>
+{% endblock %}}

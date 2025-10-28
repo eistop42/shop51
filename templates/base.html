@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+
+    <style>
+        .form-block {
+            padding: 3px;
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+<h1>Магазин Эльдорадо 🍕🍔🍟</h1>
+<p>Меню</p>
+<a href="/">Главная</a>
+<a href="/products">Cписок товаров ✨</a>
+<a href="/products/add">Добавить товар 👀</a>
+<a href="/filials">Cписок филиалов</a>
+<a href="/filials/add">Добавить филиал</a>
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>
