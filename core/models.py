@@ -44,3 +44,16 @@ class Filial(models.Model):
     class Meta:
         verbose_name = 'Филиал'
         verbose_name_plural = 'Филиалы'
+
+
+class Feedback(models.Model):
+    first_name = models.CharField(verbose_name='Имя пользователя', max_length=100)
+    text = models.TextField(verbose_name='Текст обращения')
+    phone = models.CharField(verbose_name='Телефон', max_length=20)
+
+    def __str__(self):
+        return self.first_name
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'

@@ -21,7 +21,7 @@ def name(request):
 def products(request):
 
     # получить товары из базы
-    categories = ProductCategory.objects.all()
+    categories = ProductCategory.objects.all() # select * from Product_category
 
     context = {'categories': categories}
     return render(request, 'products.html', context)
@@ -31,7 +31,10 @@ def products_category(request, category_id):
 
     category = ProductCategory.objects.get(id=category_id)
 
-    context = {'category': category}
+    # получаем все товары из категории
+    products = Product.objects.filter(category_id=category_id)
+
+    context = {'category': category, 'products': products}
     return render(request, 'products_category.html', context)
 
 
@@ -56,22 +59,35 @@ def add_product(request):
 
     errors = ''
     title = ''
+
+    # обработка формы
     if request.method == 'POST':
         # 1. Достать данные из запроса
         title = request.POST.get('title')
         count = request.POST.get('count')
         price = request.POST.get('price')
+        category = request.POST.get('category')
+
+        # проверить существование категории
+        if ProductCategory.objects.filter(id=category).exists():
+            category = ProductCategory.objects.get(id=category)
+        else:
+            category = None
 
         # 2 Проверить на валидность
-        if title and count and price:
+        if title and count and price and category:
         # 3. Если все ок - создать новый объект в базе.
-            Product.objects.create(name=title, count=count, price=price)
+
+            Product.objects.create(name=title, count=count, price=price, category=category)
             # 4. Куда-то перенаправить пользователя
             return redirect('/products')
         else:
             errors = 'Не заполнены некотрые поля'
 
-    context = {'errors': errors, 'title': title}
+    categories = ProductCategory.objects.all() # select * from core_product_category
+
+    context = {'errors': errors, 'title': title, 'categories': categories}
+
     return render(request, 'add_product.html', context)
 
 
@@ -92,3 +108,8 @@ def add_filial(request):
             return redirect('/filials')
 
     return render(request, 'add_filial.html')
+
+
+def feedback(request):
+
+    return render(request, 'feedback.html')

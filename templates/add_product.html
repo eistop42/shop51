@@ -19,6 +19,15 @@
         <label>Количество товаров</label>
         <input  name="count" type="number" placeholder="сколько штук">
     </div>
+    <div class="form-block">
+        <label>Категория товара</label>
+        <select name="category">
+<!--       перебираем категории    -->
+            {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
     <button>Добавить</button>
 </form>
 

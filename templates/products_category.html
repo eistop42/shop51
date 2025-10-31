@@ -6,4 +6,10 @@
 
 <h2>Товары из категории  {{ category.name }}</h2>
 
+{% for product in products %}
+
+<p><b><a href="{% url 'product_detail' product.id %}">{{ product.name }}</a></b> - {{ product.price }} руб. {{ product.count }} штк. </p>
+
+{% endfor %}
+
 {% endblock %}
