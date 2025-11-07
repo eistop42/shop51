@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from .models import Product, Filial, ProductCategory
+from .models import Product, Filial, ProductCategory, Feedback
+from .forms import FeedbackForm
 
 def main(request):
     return render(request, 'main.html')
@@ -110,6 +111,50 @@ def add_filial(request):
     return render(request, 'add_filial.html')
 
 
-def feedback(request):
+def feedback_old(request):
+    print(request.POST)
+
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        text = request.POST.get('text')
+        phone = request.POST.get('phone')
+
+        if first_name and text and phone:
+            Feedback.objects.create(
+                first_name=first_name,
+                text=text,
+                phone=phone
+            )
+            return redirect('/')
 
     return render(request, 'feedback.html')
+
+
+def feedback(request):
+    print(request.POST)
+    feedback_form = FeedbackForm()
+
+    if request.method == 'POST':
+        # 1. передать данные в форму
+        feedback_form = FeedbackForm(request.POST)
+        #2. проверить на валидность
+        if feedback_form.is_valid():
+            # 3. достать данные и создать объект
+            first_name = feedback_form.cleaned_data['first_name']
+            text = feedback_form.cleaned_data['text']
+            phone = feedback_form.cleaned_data['phone']
+
+            # длинный вариант
+
+            Feedback.objects.create(
+                first_name=first_name,
+                text=text,
+                phone=phone
+            )
+
+            # короткий вариант
+            Feedback.objects.create(**feedback_form.cleaned_data)
+            return redirect('/')
+
+    context = {'feedback_form': feedback_form}
+    return render(request, 'feedback.html', context)

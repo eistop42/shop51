@@ -7,20 +7,8 @@
 <h2>Обратная связь</h2>
 
 <form method="post">
-    <p style="color: red">{{ errors }}</p>
     {% csrf_token %}
-    <div class="form-block">
-        <label>Имя пользователя 🎈</label>
-        <input name="first_name" type="text" placeholder="введите имя">
-    </div>
-    <div class="form-block">
-        <label>Текст 💬</label>
-        <textarea name="text"></textarea>
-    </div>
-    <div class="form-block">
-        <label>Телефон 📢</label>
-        <input name="phone" type="text" placeholder="номер телефона">
-    </div>
+    {{ feedback_form }}
     <button>Отправить отзыв</button>
 </form>
 
