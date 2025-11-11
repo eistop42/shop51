@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from .models import Product, Filial, ProductCategory, Feedback
-from .forms import FeedbackForm
+from .forms import FeedbackForm, AddProductForm
 
 def main(request):
     return render(request, 'main.html')
@@ -56,7 +56,7 @@ def filials(request):
     return render(request, 'filials.html', context)
 
 
-def add_product(request):
+def add_product_old(request):
 
     errors = ''
     title = ''
@@ -89,6 +89,24 @@ def add_product(request):
 
     context = {'errors': errors, 'title': title, 'categories': categories}
 
+    return render(request, 'add_product.html', context)
+
+
+def add_product(request):
+
+    form = AddProductForm()
+
+    if request.method == 'POST':
+        form = AddProductForm(request.POST)
+
+        if form.is_valid():
+            # создать объект в базе
+            data = form.cleaned_data
+            product = Product.objects.create(**data)
+
+            return redirect('product_detail', product.id)
+
+    context = {'form': form}
     return render(request, 'add_product.html', context)
 
 

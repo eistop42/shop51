@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2> Добавление товара </h2>
+
+<form method="post">
+    <p style="color: red">{{ errors }}</p>
+    {% csrf_token %}
+    <div class="form-block">
+        <label>Название товара</label>
+        <input value="{{ title }}" name="title" type="text" placeholder="введите название">
+    </div>
+    <div class="form-block">
+        <label>Стоимость товара</label>
+        <input  name="price" type="number" placeholder="введите стоимость">
+    </div>
+    <div class="form-block">
+        <label>Количество товаров</label>
+        <input  name="count" type="number" placeholder="сколько штук">
+    </div>
+    <div class="form-block">
+        <label>Категория товара</label>
+        <select name="category">
+<!--       перебираем категории    -->
+            {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button>Добавить</button>
+</form>
+
+{% endblock %}
+

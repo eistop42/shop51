@@ -1,9 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %}</title>
-
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <style>
         .form-block {
             padding: 3px;
@@ -24,5 +25,7 @@
 {% block content %}
 {% endblock %}
 
+<img id="cat" src="{% static 'images/cat.jpg' %}" width="300">
+<script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
