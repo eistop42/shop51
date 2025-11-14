@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import ProductCategory
+from .models import ProductCategory, Product
 
 class FeedbackForm(forms.Form):
     first_name = forms.CharField(label='имя 🧡', widget=forms.TextInput(attrs={'placeholder': 'Джон'}))
@@ -20,6 +20,7 @@ class AddProductForm(forms.Form):
     price = forms.IntegerField(label='цена', max_value=1000, min_value=50)
     count = forms.IntegerField(label='количество', min_value=1)
     category = forms.ModelChoiceField(queryset=ProductCategory.objects.all(), label='категория')
+    image = forms.ImageField(label='картинка товара', required=False)
 
     def clean_name(self):
         name = self.cleaned_data['name']
@@ -29,3 +30,7 @@ class AddProductForm(forms.Form):
         return name
 
 
+class AddProductModelForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = '__all__'

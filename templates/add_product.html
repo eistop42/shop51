@@ -4,7 +4,7 @@
 
 <h2> Добавление товара </h2>
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form }}
     <button>Добавить</button>

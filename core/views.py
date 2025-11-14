@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from .models import Product, Filial, ProductCategory, Feedback
-from .forms import FeedbackForm, AddProductForm
+from .forms import FeedbackForm, AddProductForm, AddProductModelForm
 
 def main(request):
     return render(request, 'main.html')
@@ -48,6 +48,15 @@ def product_detail(request, product_id):
 
     return render(request, 'product_detail.html', context)
 
+
+def delete_product(request, product_id):
+
+    product = Product.objects.get(id=product_id)
+
+    product.delete()
+
+    return redirect('/products')
+
 def filials(request):
 
     filials_list = Filial.objects.all()
@@ -91,13 +100,14 @@ def add_product_old(request):
 
     return render(request, 'add_product.html', context)
 
-
-def add_product(request):
+def add_product_old_2(request):
 
     form = AddProductForm()
 
     if request.method == 'POST':
-        form = AddProductForm(request.POST)
+        print(request.POST)
+        print(request.FILES)
+        form = AddProductForm(request.POST, request.FILES)
 
         if form.is_valid():
             # создать объект в базе
@@ -109,6 +119,32 @@ def add_product(request):
     context = {'form': form}
     return render(request, 'add_product.html', context)
 
+def add_product(request):
+
+    form = AddProductModelForm()
+
+    if request.method == 'POST':
+        print(request.POST)
+        print(request.FILES)
+        form = AddProductForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            # создать объект в базе
+            product = form.save()
+
+            return redirect('product_detail', product.id)
+
+    context = {'form': form}
+    return render(request, 'add_product.html', context)
+
+
+def edit_product(request, product_id):
+
+    product = Product.objects.get(id=product_id)
+    form = AddProductModelForm(instance=product)
+
+    context = {'form': form}
+    return render(request, 'edit_product.html', context)
 
 def add_filial(request):
 

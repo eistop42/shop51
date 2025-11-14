@@ -21,6 +21,7 @@ class Product(models.Model):
         on_delete=models.SET_NULL,
         verbose_name='Категория'
     )
+    image = models.ImageField(verbose_name='картинка', blank=True, null=True)
 
     # чтобы отображались красивые названия в админке
     def __str__(self):

@@ -2,8 +2,20 @@
 
 {% block content %}
 
+
 <h2>Товар - {{ product_template.name }}</h2>
 <p>Цена: {{ product_template.price }}</p>
 <p>Количество: {{ product_template.count }}</p>
+
+<form method="post" action="{% url 'delete_product' product_template.id %}">
+    {% csrf_token %}
+    <button>Удалить товар</button>
+</form>
+
+<a href="{% url 'edit_product' product_template.id %}">Редактировать</a>
+
+{% if product_template.image  %}
+<img src="{{ product_template.image.url }}" width="300">
+{% endif %}
 
 {% endblock %}}
